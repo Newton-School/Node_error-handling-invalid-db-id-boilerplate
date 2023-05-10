@@ -21,7 +21,7 @@ Status Code: 400
 */
 const getUserByID = handleAsyncErrors(async (req, res) => {
   const { id } = req.params;
-  // Add Error Handling Here
+  // Add Error Handling Here, check if the id is valid
   const user = await User.findById(id);
   if (!user) {
     return AppError(res, 404, "User not found");
@@ -29,10 +29,6 @@ const getUserByID = handleAsyncErrors(async (req, res) => {
   res.status(200).json(user);
 });
 
-function isValidID(id) {
-  const regex = /^[0-9a-fA-F]{24}$/;
-  return regex.test(id);
-}
 
 module.exports = {
   getAllUsers,
